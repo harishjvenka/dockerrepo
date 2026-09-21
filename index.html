@@ -3,796 +3,771 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MovieTix • Book your show</title>
-    <!-- Google Font & Font Awesome for icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>BusGo · Book your bus ticket</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(145deg, #0b0f1c 0%, #1a1f2f 100%);
+            background: linear-gradient(145deg, #e9f2fc 0%, #dae5f0 100%);
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 1.5rem;
-            color: #eef2ff;
         }
 
-        /* main card */
-        .booking-app {
-            max-width: 1200px;
-            width: 100%;
-            background: rgba(18, 24, 38, 0.9);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 2.5rem;
-            padding: 2rem 2rem 2rem 2rem;
-            box-shadow: 0 25px 50px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            transition: all 0.2s ease;
-        }
-
-        /* header */
-        .app-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            color: white;
-        }
-
-        .logo i {
-            color: #f5b042;
-            background: rgba(245, 176, 66, 0.15);
-            padding: 10px;
-            border-radius: 16px;
-            font-size: 1.6rem;
-            box-shadow: 0 8px 20px -6px rgba(245, 176, 66, 0.3);
-        }
-
-        .location-badge {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 0.6rem 1.2rem;
-            border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            font-weight: 500;
-            font-size: 0.95rem;
-            color: #cbd5e1;
-            transition: all 0.2s;
-            cursor: default;
-        }
-
-        .location-badge i {
-            color: #f5b042;
-        }
-
-        /* search bar */
-        .search-section {
-            margin-bottom: 2rem;
-        }
-
-        .search-wrapper {
-            display: flex;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 60px;
-            padding: 0.2rem 0.2rem 0.2rem 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.2s ease;
-            backdrop-filter: blur(4px);
-        }
-
-        .search-wrapper:focus-within {
-            border-color: #f5b042;
-            box-shadow: 0 0 0 3px rgba(245, 176, 66, 0.2);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .search-wrapper i {
-            color: #94a3b8;
-            font-size: 1.1rem;
-        }
-
-        .search-wrapper input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            padding: 0.9rem 1rem;
-            font-size: 1rem;
-            font-weight: 400;
-            color: white;
-            outline: none;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .search-wrapper input::placeholder {
-            color: #64748b;
-            font-weight: 400;
-        }
-
-        .search-wrapper button {
-            background: #f5b042;
-            border: none;
-            color: #0b0f1c;
-            font-weight: 600;
-            padding: 0.8rem 1.8rem;
-            border-radius: 40px;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            letter-spacing: 0.3px;
-            box-shadow: 0 8px 20px -6px rgba(245, 176, 66, 0.4);
-            font-family: 'Inter', sans-serif;
-        }
-
-        .search-wrapper button:hover {
-            background: #ffc55a;
-            transform: scale(1.02);
-            box-shadow: 0 12px 24px -8px #f5b042;
-        }
-
-        .search-wrapper button i {
-            color: #0b0f1c;
-            font-size: 0.9rem;
-        }
-
-        /* section title */
-        .section-title {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            margin-bottom: 1.2rem;
-            margin-top: 0.5rem;
-        }
-
-        .section-title h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            letter-spacing: -0.3px;
-            background: linear-gradient(135deg, #ffffff, #cbd5e1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-title a {
-            color: #f5b042;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: 0.2s;
-        }
-
-        .section-title a:hover {
-            gap: 8px;
-            color: #ffca6b;
-        }
-
-        /* movie grid */
-        .movie-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .movie-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 1.8rem;
-            overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            cursor: pointer;
-            backdrop-filter: blur(4px);
-        }
-
-        .movie-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(245, 176, 66, 0.3);
-            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(245, 176, 66, 0.2);
-            background: rgba(255, 255, 255, 0.06);
-        }
-
-        .movie-poster {
-            width: 100%;
-            aspect-ratio: 2 / 3;
-            background: linear-gradient(135deg, #1e2639, #131a28);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .movie-poster i {
-            font-size: 3.5rem;
-            color: rgba(255, 255, 255, 0.15);
-            transition: 0.3s;
-        }
-
-        .movie-card:hover .movie-poster i {
-            color: rgba(245, 176, 66, 0.3);
-            transform: scale(1.05);
-        }
-
-        .movie-poster .rating-badge {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: rgba(0, 0, 0, 0.7);
+        .booking-card {
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(8px);
-            padding: 0.3rem 0.7rem;
-            border-radius: 30px;
-            font-size: 0.75rem;
+            width: 100%;
+            max-width: 750px;
+            border-radius: 2.5rem;
+            box-shadow: 0 25px 40px -12px rgba(0, 20, 40, 0.35), 0 8px 18px rgba(0, 0, 0, 0.05);
+            padding: 2rem 2rem 2.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.2s ease;
+        }
+
+        h1 {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
             font-weight: 600;
-            color: #f5b042;
-            border: 1px solid rgba(245, 176, 66, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .movie-info {
-            padding: 1rem 1rem 1.2rem;
-        }
-
-        .movie-title {
-            font-weight: 700;
-            font-size: 1rem;
+            font-size: 2rem;
+            letter-spacing: -0.02em;
+            color: #0b2b4d;
             margin-bottom: 0.35rem;
-            color: white;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            letter-spacing: -0.2px;
         }
 
-        .movie-meta {
+        h1 span {
+            background: #0b2b4d;
+            color: white;
+            font-size: 1.3rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .subhead {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 1.5px dashed #cbd6e4;
+            padding-bottom: 0.7rem;
+        }
+
+        .subhead p {
+            color: #3a5670;
+            font-weight: 450;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            color: #94a3b8;
-            font-weight: 500;
+            gap: 0.4rem;
         }
 
-        .movie-meta .genre {
-            background: rgba(255, 255, 255, 0.06);
-            padding: 0.25rem 0.7rem;
+        .subhead i {
+            font-style: normal;
+            font-size: 1.2rem;
+        }
+
+        .route-badge {
+            background: #eef5ff;
+            padding: 0.3rem 1rem;
             border-radius: 30px;
-            font-size: 0.7rem;
+            color: #1d4e7c;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            border: 1px solid #b7cee6;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem 1.5rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .field label {
+            font-size: 0.85rem;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.3px;
-            color: #cbd5e1;
-        }
-
-        /* showtime / booking area */
-        .booking-panel {
-            background: rgba(0, 0, 0, 0.25);
-            border-radius: 2rem;
-            padding: 1.5rem;
-            margin-top: 0.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(6px);
-        }
-
-        .date-selector {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.8rem;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .date-pill {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 0.7rem 1.4rem;
-            border-radius: 40px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            color: #b9c3d4;
-            cursor: pointer;
-            transition: all 0.15s;
+            color: #1e3e5c;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 0.4rem;
         }
 
-        .date-pill i {
-            color: #f5b042;
-            font-size: 0.9rem;
-        }
-
-        .date-pill.active {
-            background: #f5b042;
-            color: #0b0f1c;
-            border-color: #f5b042;
-            font-weight: 600;
-            box-shadow: 0 8px 18px -8px #f5b042;
-        }
-
-        .date-pill.active i {
-            color: #0b0f1c;
-        }
-
-        .date-pill:hover:not(.active) {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(245, 176, 66, 0.4);
-        }
-
-        .showtimes {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-        }
-
-        .time-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #e2e8f0;
-            padding: 0.9rem 1.8rem;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            letter-spacing: 0.2px;
-        }
-
-        .time-btn i {
-            color: #94a3b8;
-            font-size: 0.85rem;
-            transition: 0.2s;
-        }
-
-        .time-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(245, 176, 66, 0.5);
-            transform: scale(1.02);
-        }
-
-        .time-btn.selected {
-            background: #f5b042;
-            border-color: #f5b042;
-            color: #0b0f1c;
-            font-weight: 700;
-            box-shadow: 0 10px 20px -8px #f5b042;
-        }
-
-        .time-btn.selected i {
-            color: #0b0f1c;
-        }
-
-        /* seat & action row */
-        .action-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1.2rem;
-            margin-top: 0.8rem;
-            padding-top: 1.2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .seats-info {
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-        }
-
-        .seat-count {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(255, 255, 255, 0.04);
-            padding: 0.5rem 1rem 0.5rem 1.2rem;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .seat-count span {
-            font-weight: 500;
-            color: #cbd5e1;
-            font-size: 0.95rem;
-        }
-
-        .seat-count .count-value {
-            font-weight: 700;
-            color: #f5b042;
-            font-size: 1.2rem;
-            min-width: 30px;
-            text-align: center;
-        }
-
-        .seat-count button {
-            background: transparent;
-            border: none;
-            color: #94a3b8;
-            font-size: 1.2rem;
-            cursor: pointer;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.15s;
-        }
-
-        .seat-count button:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #f5b042;
-        }
-
-        .price-total {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(245, 176, 66, 0.1);
-            padding: 0.6rem 1.4rem;
-            border-radius: 40px;
-            border: 1px solid rgba(245, 176, 66, 0.25);
-        }
-
-        .price-total i {
-            color: #f5b042;
+        .field label i {
+            font-style: normal;
             font-size: 1.1rem;
         }
 
-        .price-total .amount {
-            font-weight: 700;
-            font-size: 1.4rem;
-            color: white;
-            letter-spacing: -0.5px;
+        .field input, .field select {
+            background: white;
+            border: 1.5px solid #d3dfec;
+            border-radius: 16px;
+            padding: 0.85rem 1.2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #0b2b4d;
+            transition: all 0.15s;
+            outline: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
         }
 
-        .price-total .currency {
-            font-weight: 500;
+        .field input:focus, .field select:focus {
+            border-color: #2c7ac9;
+            box-shadow: 0 0 0 4px rgba(44, 122, 201, 0.15);
+        }
+
+        .field input::placeholder {
+            color: #9aafc2;
+            font-weight: 400;
+        }
+
+        .passenger-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f6faff;
+            border-radius: 18px;
+            padding: 0.75rem 1.2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #d6e3f0;
+        }
+
+        .passenger-label {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 600;
+            color: #16456b;
+        }
+
+        .passenger-label i {
+            font-style: normal;
+            font-size: 1.4rem;
+        }
+
+        .counter {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: white;
+            border-radius: 40px;
+            padding: 0.2rem 0.3rem;
+            border: 1px solid #bed6ed;
+        }
+
+        .counter button {
+            background: white;
+            border: none;
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #1b4c7a;
+            transition: 0.1s;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .counter button:hover {
+            background: #e4effb;
+            transform: scale(1.02);
+        }
+
+        .counter button:active {
+            background: #cddef1;
+            transform: scale(0.98);
+        }
+
+        .counter span {
+            font-size: 1.4rem;
+            font-weight: 600;
+            min-width: 2rem;
+            text-align: center;
+            color: #0a2e4b;
+        }
+
+        .price-panel {
+            background: #0b2b4d;
+            border-radius: 22px;
+            padding: 1.2rem 1.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            margin: 1.2rem 0 1.7rem;
+            box-shadow: 0 12px 18px -8px rgba(0, 20, 30, 0.4);
+        }
+
+        .price-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .price-info .total-label {
             font-size: 0.9rem;
-            color: #94a3b8;
+            font-weight: 400;
+            opacity: 0.8;
+            letter-spacing: 0.5px;
+        }
+
+        .price-amount {
+            font-size: 2.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            line-height: 1.2;
+        }
+
+        .price-amount small {
+            font-size: 1rem;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        .seats-available {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            backdrop-filter: blur(4px);
         }
 
         .book-btn {
-            background: #f5b042;
+            background: #ffb347;
+            background: linear-gradient(135deg, #ffb347, #ff9f1c);
             border: none;
-            color: #0b0f1c;
+            width: 100%;
+            padding: 1.1rem;
+            border-radius: 40px;
+            font-size: 1.3rem;
             font-weight: 700;
-            padding: 1rem 2.5rem;
-            border-radius: 60px;
-            font-size: 1.05rem;
+            color: #1c2e3f;
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: center;
+            gap: 0.8rem;
             cursor: pointer;
-            transition: all 0.25s ease;
-            box-shadow: 0 12px 30px -10px #f5b042;
+            transition: all 0.15s;
             letter-spacing: 0.3px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            font-family: 'Inter', sans-serif;
-        }
-
-        .book-btn i {
-            font-size: 1rem;
-            transition: 0.2s;
+            box-shadow: 0 12px 18px -8px #ffb34780;
+            border: 1px solid #ffc56e;
         }
 
         .book-btn:hover {
-            background: #ffc55a;
-            transform: scale(1.02);
-            box-shadow: 0 18px 35px -8px #f5b042;
+            background: #ffa72e;
+            background: linear-gradient(135deg, #ffa72e, #f5920e);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 24px -10px #f0932b;
         }
 
-        .book-btn:hover i {
-            transform: translateX(4px);
+        .book-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 6px 12px -6px #f0932b;
         }
 
-        /* responsive */
-        @media (max-width: 700px) {
-            .booking-app {
+        .message {
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: 500;
+            min-height: 2rem;
+            color: #1e5c3a;
+            background: #e1f7e8;
+            border-radius: 30px;
+            padding: 0.6rem 1rem;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+            border: 1px solid #b1e0c0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+        }
+
+        .message.error {
+            background: #ffefef;
+            color: #b33a3a;
+            border-color: #f3c1c1;
+        }
+
+        .message.hidden {
+            opacity: 0;
+            visibility: hidden;
+            margin-top: 0;
+            padding: 0;
+            min-height: 0;
+            border: none;
+            background: transparent;
+        }
+
+        .bus-icon {
+            font-size: 1.7rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        /* small screens */
+        @media (max-width: 580px) {
+            .booking-card {
                 padding: 1.5rem;
             }
-
-            .app-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .search-wrapper {
-                flex-wrap: wrap;
-                padding: 0.8rem;
-                border-radius: 30px;
-            }
-
-            .search-wrapper input {
-                width: 100%;
-                padding: 0.8rem 0.5rem;
-            }
-
-            .search-wrapper button {
-                width: 100%;
-                justify-content: center;
-                margin-top: 0.3rem;
-            }
-
-            .action-row {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .book-btn {
-                justify-content: center;
-            }
-
-            .seats-info {
-                justify-content: space-between;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .movie-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .form-grid {
+                grid-template-columns: 1fr;
                 gap: 1rem;
             }
-
-            .date-pill {
-                padding: 0.6rem 1rem;
-                font-size: 0.8rem;
+            h1 {
+                font-size: 1.6rem;
             }
-
-            .time-btn {
-                padding: 0.7rem 1.2rem;
-                font-size: 0.85rem;
+            .price-amount {
+                font-size: 1.8rem;
+            }
+            .book-btn {
+                font-size: 1.1rem;
             }
         }
-
-        /* tiny animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .movie-card, .booking-panel {
-            animation: fadeIn 0.5s ease backwards;
-        }
-
-        .movie-card:nth-child(2) { animation-delay: 0.05s; }
-        .movie-card:nth-child(3) { animation-delay: 0.1s; }
-        .movie-card:nth-child(4) { animation-delay: 0.15s; }
     </style>
 </head>
 <body>
-    <div class="booking-app">
-        <!-- Header -->
-        <header class="app-header">
-            <div class="logo">
-                <i class="fas fa-film"></i>
-                <span>MovieTix</span>
-            </div>
-            <div class="location-badge">
-                <i class="fas fa-map-pin"></i>
-                <span>Downtown • IMAX 4K</span>
-            </div>
-        </header>
-
-        <!-- Search -->
-        <div class="search-section">
-            <div class="search-wrapper">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search movies, genres, or theaters...">
-                <button>
-                    <i class="fas fa-sliders-h"></i> Filters
-                </button>
+    <div class="booking-card">
+        <h1>
+            🚌 BusGo
+            <span>book</span>
+        </h1>
+        <div class="subhead">
+            <p><i>📍</i> Fast & easy ticket</p>
+            <div class="route-badge">
+                <span>🟢</span> live seats
             </div>
         </div>
 
-        <!-- Now showing -->
-        <div class="section-title">
-            <h2>Now showing</h2>
-            <a href="#">View all <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <!-- Movie grid -->
-        <div class="movie-grid">
-            <!-- Movie 1 -->
-            <div class="movie-card">
-                <div class="movie-poster">
-                    <i class="fas fa-video"></i>
-                    <div class="rating-badge"><i class="fas fa-star"></i> 8.7</div>
-                </div>
-                <div class="movie-info">
-                    <div class="movie-title">Dune: Part Two</div>
-                    <div class="movie-meta">
-                        <span class="genre">Sci-Fi</span>
-                        <span>2h 46m</span>
-                    </div>
-                </div>
+        <!-- main booking form -->
+        <div class="form-grid">
+            <div class="field">
+                <label><i>🚏</i> From</label>
+                <input type="text" id="fromCity" placeholder="e.g. New York" value="New York" list="cities">
             </div>
-            <!-- Movie 2 -->
-            <div class="movie-card">
-                <div class="movie-poster">
-                    <i class="fas fa-mask"></i>
-                    <div class="rating-badge"><i class="fas fa-star"></i> 9.1</div>
-                </div>
-                <div class="movie-info">
-                    <div class="movie-title">Oppenheimer</div>
-                    <div class="movie-meta">
-                        <span class="genre">Drama</span>
-                        <span>3h 0m</span>
-                    </div>
-                </div>
+            <div class="field">
+                <label><i>🏁</i> To</label>
+                <input type="text" id="toCity" placeholder="e.g. Boston" value="Boston" list="cities">
             </div>
-            <!-- Movie 3 -->
-            <div class="movie-card">
-                <div class="movie-poster">
-                    <i class="fas fa-dragon"></i>
-                    <div class="rating-badge"><i class="fas fa-star"></i> 8.2</div>
-                </div>
-                <div class="movie-info">
-                    <div class="movie-title">Godzilla x Kong</div>
-                    <div class="movie-meta">
-                        <span class="genre">Action</span>
-                        <span>1h 55m</span>
-                    </div>
-                </div>
+            <div class="field">
+                <label><i>📅</i> Departure date</label>
+                <input type="date" id="travelDate" value="2025-06-15">
             </div>
-            <!-- Movie 4 -->
-            <div class="movie-card">
-                <div class="movie-poster">
-                    <i class="fas fa-ghost"></i>
-                    <div class="rating-badge"><i class="fas fa-star"></i> 7.9</div>
-                </div>
-                <div class="movie-info">
-                    <div class="movie-title">Ghostbusters</div>
-                    <div class="movie-meta">
-                        <span class="genre">Comedy</span>
-                        <span>1h 45m</span>
-                    </div>
-                </div>
+            <div class="field">
+                <label><i>⏰</i> Time</label>
+                <select id="timeSelect">
+                    <option value="08:00">08:00 AM</option>
+                    <option value="10:30" selected>10:30 AM</option>
+                    <option value="13:00">01:00 PM</option>
+                    <option value="16:45">04:45 PM</option>
+                    <option value="20:00">08:00 PM</option>
+                </select>
             </div>
         </div>
 
-        <!-- Booking panel -->
-        <div class="booking-panel">
-            <!-- Date selector -->
-            <div class="date-selector">
-                <div class="date-pill active">
-                    <i class="fas fa-calendar-alt"></i> Today, 12 Oct
-                </div>
-                <div class="date-pill">
-                    <i class="fas fa-calendar-alt"></i> Fri, 13 Oct
-                </div>
-                <div class="date-pill">
-                    <i class="fas fa-calendar-alt"></i> Sat, 14 Oct
-                </div>
-                <div class="date-pill">
-                    <i class="fas fa-calendar-alt"></i> Sun, 15 Oct
-                </div>
+        <!-- passenger counter (user friendly interactive) -->
+        <div class="passenger-row">
+            <div class="passenger-label">
+                <i>🧑‍🤝‍🧑</i> Passengers
             </div>
+            <div class="counter">
+                <button id="decrementBtn" aria-label="Decrease passengers">−</button>
+                <span id="passengerCount">1</span>
+                <button id="incrementBtn" aria-label="Increase passengers">+</button>
+            </div>
+        </div>
 
-            <!-- Showtimes -->
-            <div class="showtimes">
-                <div class="time-btn selected">
-                    <i class="far fa-clock"></i> 14:30
-                </div>
-                <div class="time-btn">
-                    <i class="far fa-clock"></i> 17:15
-                </div>
-                <div class="time-btn">
-                    <i class="far fa-clock"></i> 20:00
-                </div>
-                <div class="time-btn">
-                    <i class="far fa-clock"></i> 22:45
+        <!-- price & seats summary (live update) -->
+        <div class="price-panel">
+            <div class="price-info">
+                <div class="total-label">TOTAL PRICE</div>
+                <div class="price-amount">
+                    $<span id="totalPrice">45</span>
+                    <small>USD</small>
                 </div>
             </div>
+            <div class="seats-available">
+                <span>🪑</span> <span id="seatsLeftDisplay">32 seats left</span>
+            </div>
+        </div>
 
-            <!-- Seat & action -->
-            <div class="action-row">
-                <div class="seats-info">
-                    <div class="seat-count">
-                        <button><i class="fas fa-minus"></i></button>
-                        <span>Seats</span>
-                        <span class="count-value">2</span>
-                        <button><i class="fas fa-plus"></i></button>
-                    </div>
-                    <div class="price-total">
-                        <i class="fas fa-tag"></i>
-                        <span class="amount">$24.00</span>
-                        <span class="currency">USD</span>
-                    </div>
-                </div>
-                <button class="book-btn">
-                    Book tickets <i class="fas fa-arrow-right"></i>
-                </button>
-            </div>
+        <!-- book button -->
+        <button class="book-btn" id="bookButton">
+            <span>🎫</span> Confirm & book
+        </button>
+
+        <!-- message area -->
+        <div id="messageBox" class="message hidden">
+            <span>✨</span> <span id="messageText"></span>
         </div>
     </div>
 
-    <!-- tiny interactive script (just for demonstration) -->
+    <!-- datalist for city suggestions (just for friendliness) -->
+    <datalist id="cities">
+        <option value="New York">
+        <option value="Boston">
+        <option value="Washington">
+        <option value="Philadelphia">
+        <option value="Chicago">
+        <option value="Los Angeles">
+        <option value="San Francisco">
+        <option value="Miami">
+    </datalist>
+
     <script>
-        (function() {
-            // date pill active switching
-            const datePills = document.querySelectorAll('.date-pill');
-            datePills.forEach(pill => {
-                pill.addEventListener('click', function() {
-                    datePills.forEach(p => p.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
+        (function(){
+            // ---------- state ----------
+            const BASE_PRICE_PER_SEAT = 45;       // base price for 1 passenger
+            let passengerCount = 1;
+            let availableSeats = 32;               // simulation: seats left on bus
 
-            // showtime selection
-            const timeBtns = document.querySelectorAll('.time-btn');
-            timeBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    timeBtns.forEach(b => b.classList.remove('selected'));
-                    this.classList.add('selected');
-                });
-            });
+            // DOM elements
+            const fromInput = document.getElementById('fromCity');
+            const toInput = document.getElementById('toCity');
+            const dateInput = document.getElementById('travelDate');
+            const timeSelect = document.getElementById('timeSelect');
+            const decrementBtn = document.getElementById('decrementBtn');
+            const incrementBtn = document.getElementById('incrementBtn');
+            const passengerSpan = document.getElementById('passengerCount');
+            const totalPriceSpan = document.getElementById('totalPrice');
+            const seatsLeftDisplay = document.getElementById('seatsLeftDisplay');
+            const bookButton = document.getElementById('bookButton');
+            const messageBox = document.getElementById('messageBox');
+            const messageText = document.getElementById('messageText');
 
-            // simple seat count +/- demo
-            const minusBtn = document.querySelector('.seat-count button:first-of-type');
-            const plusBtn = document.querySelector('.seat-count button:last-of-type');
-            const countSpan = document.querySelector('.count-value');
-            const priceAmount = document.querySelector('.price-total .amount');
-            let seats = 2;
-            const pricePerSeat = 12.00;
+            // ---------- helper: update price and seat display ----------
+            function updateSummary() {
+                // ensure passengerCount is within availableSeats (but at least 1)
+                if (passengerCount > availableSeats) {
+                    passengerCount = availableSeats;
+                }
+                if (passengerCount < 1) {
+                    passengerCount = 1;
+                }
 
-            function updatePrice() {
-                const total = (seats * pricePerSeat).toFixed(2);
-                priceAmount.textContent = `$${total}`;
-                countSpan.textContent = seats;
+                // update passenger display
+                passengerSpan.textContent = passengerCount;
+
+                // calculate total price (base * count)
+                const total = BASE_PRICE_PER_SEAT * passengerCount;
+                totalPriceSpan.textContent = total;
+
+                // update seats left display (remaining seats after this booking)
+                const remaining = availableSeats - passengerCount;
+                seatsLeftDisplay.textContent = `${remaining} seat${remaining !== 1 ? 's' : ''} left`;
             }
 
-            minusBtn.addEventListener('click', function() {
-                if (seats > 1) {
-                    seats--;
-                    updatePrice();
+            // ---------- show message (success / error) ----------
+            function showMessage(text, isError = false) {
+                messageText.textContent = text;
+                messageBox.classList.remove('hidden', 'error');
+                if (isError) {
+                    messageBox.classList.add('error');
+                } else {
+                    messageBox.classList.remove('error');
+                }
+                // auto-hide after 4 seconds
+                clearTimeout(window.messageTimeout);
+                window.messageTimeout = setTimeout(() => {
+                    messageBox.classList.add('hidden');
+                }, 4000);
+            }
+
+            // ---------- increment / decrement with limits ----------
+            function incrementPassengers() {
+                if (passengerCount < availableSeats) {
+                    passengerCount++;
+                    updateSummary();
+                    // clear any previous error when user changes count
+                    if (!messageBox.classList.contains('hidden') && messageBox.classList.contains('error')) {
+                        messageBox.classList.add('hidden');
+                    }
+                } else {
+                    showMessage(`⚠️ Only ${availableSeats} seat${availableSeats !== 1 ? 's' : ''} available!`, true);
+                }
+            }
+
+            function decrementPassengers() {
+                if (passengerCount > 1) {
+                    passengerCount--;
+                    updateSummary();
+                    if (!messageBox.classList.contains('hidden') && messageBox.classList.contains('error')) {
+                        messageBox.classList.add('hidden');
+                    }
+                } else {
+                    showMessage('🧑 At least one passenger required.', true);
+                }
+            }
+
+            // ---------- booking logic ----------
+            function bookTicket() {
+                // basic validation
+                const fromCity = fromInput.value.trim();
+                const toCity = toInput.value.trim();
+                const travelDate = dateInput.value;
+                const time = timeSelect.value;
+
+                if (!fromCity || !toCity) {
+                    showMessage('❗ Please enter both departure and destination.', true);
+                    return;
+                }
+                if (fromCity.toLowerCase() === toCity.toLowerCase()) {
+                    showMessage('🔄 Departure and destination cannot be the same.', true);
+                    return;
+                }
+                if (!travelDate) {
+                    showMessage('📅 Please choose a travel date.', true);
+                    return;
+                }
+
+                // check if we have enough seats
+                if (passengerCount > availableSeats) {
+                    showMessage(`🚫 Sorry, only ${availableSeats} seat${availableSeats !== 1 ? 's' : ''} left.`, true);
+                    passengerCount = availableSeats;
+                    updateSummary();
+                    return;
+                }
+
+                // simulate booking: reduce available seats
+                availableSeats = availableSeats - passengerCount;
+
+                // if available seats become 0, set passengerCount to 0? we must handle
+                if (availableSeats === 0) {
+                    // no seats left, but the booking is successful. keep passengerCount as is for display,
+                    // but disable increments by setting count to 0? Better: we keep count but if user tries to increment, show error.
+                    // but we also need to prevent further bookings.
+                    // We'll show a success message and update UI accordingly.
+                    // also decrement button will be limited later.
+                }
+
+                // Update UI: seats left and price
+                // but passengerCount might be > availableSeats after this? No, we checked.
+                // After booking we set the new availableSeats and need to reflect that in the display.
+                // The seats display shows remaining seats (after booking)
+                // we also reset passenger count to 1? Not necessarily, but to make it consistent: after booking,
+                // the number of passengers remains the same, but available seats reduced. 
+                // But the user might want to book more? This is a simulation, we keep it simple.
+
+                // update the internal count to reflect that we already booked passengerCount seats.
+                // but the seats left is now availableSeats (already reduced).
+                // and passengerCount should be updated to not exceed new availableSeats.
+                // but we want the form to reflect the new availability.
+                if (passengerCount > availableSeats) {
+                    passengerCount = Math.max(1, availableSeats);   // ensure at least 1 if possible
+                }
+                if (availableSeats === 0) {
+                    // no seats left, set passengerCount to 0? but we need min 1 for display? we'll set to 1 but block increment
+                    passengerCount = 1; // but no seats left, so we can't book again. We'll disable increment.
+                    // We'll handle in updateSummary; but we need to disable increment button if no seats.
+                }
+
+                // update all displays
+                updateSummary();
+
+                // success message with details
+                const price = BASE_PRICE_PER_SEAT * passengerCount; // careful: we used previous passengerCount? 
+                // Actually the total price shown is based on passengerCount (which might have been modified if overbook)
+                // For the message we use the passengerCount that was booked (original before any reduction? better to capture before)
+                // But let's capture the original booking count:
+                // To avoid confusion, we store bookedCount before we adjust passengerCount.
+                // We'll refactor with a variable. But for simplicity, we'll recompute after the adjustment 
+                // but we want the message to show what the user selected. We'll use a captured variable before booking.
+                // But the code above changed passengerCount if it exceeded. Let's do it properly:
+
+                // Actually we should capture requested count before any modification.
+                // However, the code above already modified passengerCount if it exceeded availableSeats after booking.
+                // That's a bug. Let's fix by rewriting a bit.
+
+                // We'll re-implement the booking cleanly inside this function using fresh variables.
+                // (I'll rewrite below, but to avoid duplicate code I'll just restructure the whole function)
+            }
+
+            // ---------- rewrite bookTicket properly (we'll replace the function) ----------
+            // Overwrite the function with a clean version.
+            const originalBookFunction = function() {
+                // We'll define it inside and reassign.
+            };
+
+            // reassign bookTicket to a clean version:
+            const cleanBookTicket = function() {
+                const fromCity = fromInput.value.trim();
+                const toCity = toInput.value.trim();
+                const travelDate = dateInput.value;
+                const time = timeSelect.value;
+
+                // validation
+                if (!fromCity || !toCity) {
+                    showMessage('❗ Please enter both departure and destination.', true);
+                    return;
+                }
+                if (fromCity.toLowerCase() === toCity.toLowerCase()) {
+                    showMessage('🔄 Departure and destination cannot be the same.', true);
+                    return;
+                }
+                if (!travelDate) {
+                    showMessage('📅 Please choose a travel date.', true);
+                    return;
+                }
+
+                // check available seats
+                if (availableSeats <= 0) {
+                    showMessage('🚌 No seats left on this bus. Please choose another time or route.', true);
+                    return;
+                }
+
+                // capture the requested number of passengers
+                let requestedCount = passengerCount;
+
+                // if requested exceeds available seats, we limit and notify
+                if (requestedCount > availableSeats) {
+                    showMessage(`⚠️ Only ${availableSeats} seat${availableSeats !== 1 ? 's' : ''} available. Adjusted to max.`, true);
+                    requestedCount = availableSeats;
+                    passengerCount = availableSeats; // update UI
+                    updateSummary();
+                    // but we don't want to proceed with booking automatically after limiting? 
+                    // Actually user wanted more than available. We can either book the available seats or ask to adjust.
+                    // We'll just limit and book, but show message. That's friendly.
+                }
+
+                // now perform booking
+                availableSeats -= requestedCount;
+
+                // if availableSeats becomes 0, we need to handle passengerCount for UI
+                if (availableSeats === 0) {
+                    // no seats left, we set passengerCount to 1 to allow display, but prevent increment.
+                    // Actually we can set passengerCount to 1, but then it's misleading.
+                    // Better to set passengerCount to 0? but counter doesn't allow zero. So we set to 1,
+                    // and disable increment when availableSeats === 0.
+                    // We'll manage via updateSummary and also disable increment button if availableSeats === 0
+                    passengerCount = 1; // for UI consistency
+                } else {
+                    // keep passengerCount as requestedCount (or maybe reduce if it exceeds new availableSeats? no, requestedCount <= old availableSeats)
+                    // but we need to ensure passengerCount doesn't exceed new availableSeats
+                    if (passengerCount > availableSeats) {
+                        passengerCount = availableSeats;
+                    }
+                    // but at least 1
+                    if (passengerCount < 1) passengerCount = 1;
+                }
+
+                // update summary (total price based on current passengerCount, but we want it to reflect the booking? 
+                // The total price displayed should show current selection, not the booked amount. 
+                // But it's fine. However for the success message we use requestedCount and price.
+                const totalPaid = BASE_PRICE_PER_SEAT * requestedCount;
+
+                // update UI summary
+                updateSummary();
+
+                // message with booking details
+                const seatWord = requestedCount === 1 ? 'seat' : 'seats';
+                showMessage(`✅ Booked ${requestedCount} ${seatWord} · ${fromCity} → ${toCity} · ${time} · $${totalPaid}`, false);
+
+                // also if seats became 0, we should maybe disable increment button dynamically.
+                // we'll handle in updateSummary? but better to add a check.
+                // we'll call a function to update button states.
+                updateButtonStates();
+            };
+
+            // replace bookTicket function
+            bookTicket = cleanBookTicket;
+
+            // function to update button disabled states
+            function updateButtonStates() {
+                // if no seats left, disable increment button
+                if (availableSeats <= 0) {
+                    incrementBtn.disabled = true;
+                    incrementBtn.style.opacity = '0.5';
+                    incrementBtn.style.cursor = 'not-allowed';
+                } else {
+                    incrementBtn.disabled = false;
+                    incrementBtn.style.opacity = '1';
+                    incrementBtn.style.cursor = 'pointer';
+                }
+                // decrement disabled if passengerCount <=1
+                if (passengerCount <= 1) {
+                    decrementBtn.disabled = true;
+                    decrementBtn.style.opacity = '0.5';
+                    decrementBtn.style.cursor = 'not-allowed';
+                } else {
+                    decrementBtn.disabled = false;
+                    decrementBtn.style.opacity = '1';
+                    decrementBtn.style.cursor = 'pointer';
+                }
+            }
+
+            // ---------- attach event listeners ----------
+            decrementBtn.addEventListener('click', decrementPassengers);
+            incrementBtn.addEventListener('click', incrementPassengers);
+            bookButton.addEventListener('click', bookTicket);
+
+            // also update on any change to inputs? not needed, but we can clear error messages on input
+            fromInput.addEventListener('input', () => {
+                if (!messageBox.classList.contains('hidden') && messageBox.classList.contains('error')) {
+                    messageBox.classList.add('hidden');
+                }
+            });
+            toInput.addEventListener('input', () => {
+                if (!messageBox.classList.contains('hidden') && messageBox.classList.contains('error')) {
+                    messageBox.classList.add('hidden');
+                }
+            });
+            dateInput.addEventListener('change', () => {
+                if (!messageBox.classList.contains('hidden') && messageBox.classList.contains('error')) {
+                    messageBox.classList.add('hidden');
                 }
             });
 
-            plusBtn.addEventListener('click', function() {
-                if (seats < 10) {
-                    seats++;
-                    updatePrice();
-                }
-            });
+            // ---------- initial update ----------
+            // ensure initial passenger count and display matches
+            passengerCount = 1;
+            // simulate available seats (32)
+            // also ensure buttons reflect state
+            updateSummary();
+            updateButtonStates();
 
-            // initial price update
-            updatePrice();
+            // additionally, override updateSummary to also update button states
+            // store original updateSummary, then wrap
+            const originalUpdateSummary = updateSummary;
+            updateSummary = function() {
+                originalUpdateSummary();
+                updateButtonStates();
+            };
+
+            // call again to be sure
+            updateSummary();
+
+            // small UX: clicking on increment when no seats left shows error, but we also disabled.
+            // We'll also handle if increment is clicked while disabled (should not happen)
         })();
     </script>
 </body>
