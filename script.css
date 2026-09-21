@@ -1,0 +1,7 @@
+const PRICE = 14.50, OCCUPIED = new Set(['A3','A4','B5','B6','C1','C2','D7','D8','E4','E5','F9','F10','G2','G3','G6','G7']), selected = new Set();
+const grid = document.getElementById('seatsGrid'), list = document.getElementById('selectedSeatsList'), total = document.getElementById('totalPrice');
+['A','B','C','D','E','F','G'].forEach(row => { const r = document.createElement('div'); r.className = 'seat-row'; for (let c = 1; c <= 10; c++) { const id = row + c, s = document.createElement('div'); s.className = 'seat'; s.textContent = c; s.dataset.id = id; if (OCCUPIED.has(id)) s.classList.add('occupied'); s.onclick = () => toggle(id, s); r.appendChild(s); } grid.appendChild(r); });
+function toggle(id, el) { if (el.classList.contains('occupied')) return; selected.has(id) ? (selected.delete(id), el.classList.remove('selected')) : (selected.add(id), el.classList.add('selected')); update(); }
+function update() { const arr = [...selected].sort(); list.innerHTML = arr.length ? arr.map(s => `<span class="badge">${s}</span>`).join('') : '<span class="empty">No seats selected</span>'; total.textContent = (arr.length * PRICE).toFixed(2); }
+document.getElementById('clearBtn').onclick = () => { selected.clear(); document.querySelectorAll('.seat.selected').forEach(s => s.classList.remove('selected')); update(); };
+document.getElementById('checkoutBtn').onclick = () => selected.size ? alert(`Booking ${selected.size} seat(s): ${[...selected].join(', ')} · Total $${(selected.size*PRICE).toFixed(2)}`) : alert('Please select at least one seat.');
